@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3.dev">
-<title>clientSIP</title>
+<title>Pushbullet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -412,107 +412,620 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>clientSIP</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_description">1. Description</a></li>
-<li><a href="#_installation_et_configuration">2. Installation et configuration</a></li>
-<li><a href="#_paramétrage_des_equipements_et_des_commandes">3. Paramétrage des equipements et des commandes</a></li>
-<li><a href="#_commandes_jeedom">4. Commandes jeedom</a></li>
+<li><a href="#_pushbullet">1. Pushbullet</a>
+<ul class="sectlevel2">
+<li><a href="#_description">1.1. Description</a>
+<ul class="sectlevel3">
+<li><a href="#_générale">1.1.1. Générale</a></li>
+<li><a href="#_pré_requis">1.1.2. Pré-requis</a></li>
+</ul>
+</li>
+<li><a href="#_configuration">1.2. Configuration</a>
+<ul class="sectlevel3">
+<li><a href="#_envoi_de_notification_vers_un_device">1.2.1. Envoi de notification vers un device</a></li>
+<li><a href="#_envoi_de_notification_vers_jeedom">1.2.2. Envoi de notification vers Jeedom</a></li>
+<li><a href="#_utilisation_avec_des_interactions">1.2.3. Utilisation avec des interactions</a></li>
+<li><a href="#_développeurs">1.2.4. Développeurs</a></li>
+</ul>
+</li>
+<li><a href="#_faq">1.3. FAQ</a>
+<ul class="sectlevel3">
+<li><a href="#_faq_2">1.3.1. FAQ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_installation_et_configuration_initiale">2. Installation et configuration initiale</a>
+<ul class="sectlevel3">
+<li><a href="#_introduction_et_création_d_un_compte_chez_pushbullet">2.1. Introduction et création d&#8217;un compte chez Pushbullet</a></li>
+<li><a href="#_vocabulaire">2.2. Vocabulaire</a></li>
+<li><a href="#_obtenir_le_token_pushbullet">2.3. Obtenir le token Pushbullet</a></li>
+<li><a href="#_installation_du_plugin">2.4. Installation du plugin</a></li>
+</ul>
+</li>
+<li><a href="#_création_d_un_équipement">3. Création d&#8217;un équipement</a>
+<ul class="sectlevel3">
+<li><a href="#_paramètres_d_un_device">3.1. Paramètres d&#8217;un device</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_description">1. Description</h2>
+<h2 id="_pushbullet">1. Pushbullet</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_description">1.1. Description</h3>
+<div class="sect3">
+<h4 id="_générale">1.1.1. Générale</h4>
 <div class="paragraph">
-<p>Ce plugin a pour but de conneter jeedom a notre reseau Sip</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_installation_et_configuration">2. Installation et configuration</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Pour utiliser se plugin, il est impératif d&#8217;avoir configurer un serveur sip et d&#8217;y saisir les informations de connexions</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ServerSip.jpg" alt="ServerSip">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_paramétrage_des_equipements_et_des_commandes">3. Paramétrage des equipements et des commandes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Avant de commancer le parametrage du client sur jeedom, il est impératif de l&#8217;avoir cree sur votre serveur</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ClientSipConfiguration.jpg" alt="ClientSipConfiguration">
-</div>
-</div>
-<div class="paragraph">
-<p>La configuration du client se deroule en 2 partie, la premiere la configuration général a jeedom que je ne detaillerai pas dans cette doc, et la seconde spécifique au clients.</p>
+<p>Plugin permettant de faire interagir le service Pushbullet avec Jeedom.
+Les principales fonctionnalités sont :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Saisir les informations d&#8217;autentificaiton sur le serveur</p>
+<p>envoi de notifications depuis jeedom vers un device pushbullet</p>
 </li>
 <li>
-<p>Saisir le temps d&#8217;expiration</p>
-</li>
-<li>
-<p>Choisir le type de transport</p>
+<p>envoi de commandes depuis pushbullet vers jeedom, avec support des interactions jeedom</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_pré_requis">1.1.2. Pré-requis</h4>
 <div class="paragraph">
-<p>Un fois sauvgarder jeedom communiquera avec votre reseau sip</p>
+<p>L&#8217;utilisation de ce plugin requiert de créer un compte (gratuit) sur <a href="http://www.pushbullet.com" class="bare">http://www.pushbullet.com</a></p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_commandes_jeedom">4. Commandes jeedom</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_configuration">1.2. Configuration</h3>
+<div class="sect3">
+<h4 id="_envoi_de_notification_vers_un_device">1.2.1. Envoi de notification vers un device</h4>
+<div class="sect4">
+<h5 id="_principe">Principe</h5>
 <div class="paragraph">
-<p>La liste si dessous décrit chaque commande disponible sous jeedom</p>
+<p>Il est possible d&#8217;envoyer une notification depuis Jeedom</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Etat connexion: Cette commande reflete l&#8217;etat du client sur le reseau sip</p>
+<p>à un device particulier d&#8217;un équipement</p>
 </li>
 <li>
-<p>Inactif: le client n&#8217;est pas enregister et il ne sera pas possible de passer ou recevoir un appel</p>
-</li>
-<li>
-<p>Enregistrer: le client peut passer ou recevoir un appel</p>
-</li>
-<li>
-<p>Etat appel: cette commande determine l&#8217;etat de la ligne</p>
-</li>
-<li>
-<p>Racrocher: la ligne est libre</p>
-</li>
-<li>
-<p>Appel en cours: jeedom compose un numero et attend le retour du serveur</p>
-</li>
-<li>
-<p>Sonnerie: Un appel est en cours et attend un reponse</p>
-</li>
-<li>
-<p>Décrocher: Un appel est en cours de conversation</p>
-</li>
-<li>
-<p>Appel: Cette commande permet de saisir un numero d&#8217;appel</p>
+<p>à tous les devices d&#8217;un équipement</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_notification_manuelle">Notification manuelle</h5>
+<div class="paragraph">
+<p>Une notification peut être envoyée manuellement via le dashboard Jeedom, en utilisant les wdiget correspondant aux device. Il suffit de remplir le titre et le contenu du message</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_dash.png" alt="pushbullet dash">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_usage_dans_un_scénario">Usage dans un scénario</h5>
+<div class="paragraph">
+<p>Il est possible d&#8217;envoyer une notification dans le déroulement d&#8217;un scénario. Pour cela, il suffit d&#8217;invoquer l&#8217;action correspondant au device vers lequel la notification doit être envoyée.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_scenario.png" alt="pushbullet scenario">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_envoie_d_une_image">Envoie d&#8217;une image</h5>
+<div class="paragraph">
+<p>Il est possible d&#8217;envoyer une image depuis Jeedom vers Pushbullet. Pour cela, il suffit de mettre l&#8217;URL de l&#8217;image dans le champs "titre" de la notification. Si l&#8217;URL pointe vers une image, le plugin le reconnaitra automatiquement et traitera la notification comme un envoi d&#8217;image. Sinon, la notification sera traitée comme une notification classique.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_dash_url.png" alt="pushbullet dash url">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_intégration_dans_d_autres_plugins">Intégration dans d&#8217;autres plugins</h5>
+<div class="sect5">
+<h6 id="_plugin_camera">Plugin Camera</h6>
+<div class="paragraph">
+<p>Le plugin Camera permet de définir un équipement qui sert à recevoir les captures d&#8217;image de la caméra. A cet endroit, il est possible de définir un équipement Pushbullet. Ainsi, les captures seront envoyés à cet équipement pushbullet.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_camera.png" alt="pushbullet camera">
+</div>
+</div>
+<div class="paragraph">
+<p>Utilisations possibles:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>créer un scénario qui appelle la commande "envoyer une capture" de l&#8217;objet caméra</p>
+</li>
+<li>
+<p>créer une interaction associée à la commande "envoyer une capture" de l&#8217;objet caméra, ce qui permet de demander une capture en envoyant depuis Pushbullet une notification à Jeedom</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_envoi_de_notification_vers_jeedom">1.2.2. Envoi de notification vers Jeedom</h4>
+<div class="sect4">
+<h5 id="_principe_2">Principe</h5>
+<div class="paragraph">
+<p>Il est possible d&#8217;envoyer un push vers Jeedom depuis l&#8217;application Pushbullet. L&#8217;application Pushbullet peut être celle sur Android, iPhone, ou plus simplement via <a href="http://www.pushbullet.com" class="bare">http://www.pushbullet.com</a></p>
+</div>
+<div class="paragraph">
+<p>Les notifications reçues par Jeedom sont traitées quasi instantanément. Dans le cas (très rare) où plusieurs nouvelles notifications seraient envoyées simultanément, elles seront toutes prises en compte dans leur ordre d&#8217;arrivée.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Toutes les notifications déclencheront une interaction (si les interactions sont activées sur l&#8217;équipement en question)
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+En cas de notifications multiples, seule la dernière notification déclenchera un scénario (si l&#8217;équipement est défini comme déclencheur d&#8217;un scénario). C&#8217;est une limitation actuelle de Jeedom, qui pourra être levée plus tard.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_notification_simple">Notification simple</h5>
+<div class="paragraph">
+<p>Une notification simple consiste à envoyer un push vers Jeedom qui sera immédiatement traitée. Ce traitement consiste à mettre à jour le device Jeedom avec comme nouvelle valeur ce qui aura été mis dans le message de la notification.</p>
+</div>
+<div class="paragraph">
+<p>Une telle notification s&#8217;envoie depuis Pushbullet avec :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Message</code> : le contenu du message qui sera utilisé pour mettre à jour le device Jeedom</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_push_basique2_new.png" alt="pushbullet push basique2 new">
+</div>
+</div>
+<div class="paragraph">
+<p>Cette notification peut alors être utilisée de manière classique dans Jeedom (comme tout équipement de type "info"):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour déclencher une scénario</p>
+</li>
+<li>
+<p>Pour faire un test dans un scénario</p>
+</li>
+<li>
+<p>Etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Exemple</em>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_push_basique1.png" alt="pushbullet push basique1">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_notification_programmée">Notification programmée</h5>
+<div class="paragraph">
+<p>Le principe d&#8217;une notification programmée est le même qu&#8217;une notification simple. La différence, c&#8217;est qu&#8217;il est possible de définir l&#8217;heure à laquelle le device Jeedom sera mis à jour. Ainsi, si par exemple le device Jeedom était associé comme déclencheur du scénario, il devient possible de déclencher le scénario à l&#8217;horaire souhaité.</p>
+</div>
+<div class="sect5">
+<h6 id="_format_de_message_ancienne_version_toujours_supportée">Format de message (ancienne version, toujours supportée)</h6>
+<div class="paragraph">
+<p>L&#8217;envoi d&#8217;une notification programmée s&#8217;effectue de la même manière qu&#8217;une notification simple, mais le contenu du message sera constitué de 2 lignes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La première ligne contient l&#8217;heure de programmation, au format ci-dessous</p>
+<div class="literalblock">
+<div class="content">
+<pre>P &lt;heure&gt;</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Où <code>&lt;heure&gt;</code> correspond à l&#8217;horaire souhaitée</p>
+</div>
+<div class="paragraph">
+<p>La syntaxe de <code>&lt;heure&gt;</code> suit celle définie ici : <a href="http://php.net/manual/fr/datetime.formats.php" class="bare">http://php.net/manual/fr/datetime.formats.php</a>. Les formats absolus et relatifs sont supportés</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les lignes suivantes contiennent les messages envoyés à jeedom</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Exemples</em></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>P 18:30 -&gt; programmera un évènement pour 18h30 le même jour</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>P 25-12-2014 20:00 -&gt; programmera un évènement le jour de Noël à 20:00</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>P 72 hours -&gt; programmera un évènement qui se déclenchera dans 72 heures</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pushbullet_push_basique3_new.png" alt="pushbullet push basique3 new">
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_format_de_message_nouvelle_version_depuis_v2_50">Format de message (nouvelle version, depuis v2.50)</h6>
+<div class="paragraph">
+<p>L&#8217;envoi d&#8217;une notification programmée s&#8217;effectue de la même manière qu&#8217;une notification simple, mais le contenu du message sera formatté sur une seule ligne avec '/' comme séparateur et comme premier caractère:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La première partie contient l&#8217;heure de programmation, au format ci-dessous</p>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;heure&gt;</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Où <code>&lt;heure&gt;</code> correspond à l&#8217;horaire souhaitée</p>
+</div>
+<div class="paragraph">
+<p>La syntaxe de <code>&lt;heure&gt;</code> suit celle définie ici : <a href="http://php.net/manual/fr/datetime.formats.php" class="bare">http://php.net/manual/fr/datetime.formats.php</a>. Les formats absolus et relatifs sont supportés</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les parties suivantes contiennentt les message envoyés à jeedom</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Exemples</em></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/18:30/message 1/message 2 -&gt; programmera un évènement pour 18h30 le même jour</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/25-12-2014 20:00/message 1/message 2 -&gt; programmera un évènement le jour de Noël à 20:00</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/72 hours/message 1/message 2 -&gt; programmera un évènement qui se déclenchera dans 72 heures</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_remarques">Remarques</h5>
+<div class="paragraph">
+<p>Une notification programmée ne se déclenche qu&#8217;une seule fois, et uniquement à l&#8217;horaire programmé.</p>
+</div>
+<div class="paragraph">
+<p>Il est possible de programmer plusieurs évènements (à des horaires différents ou pas).</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_utilisation_avec_des_interactions">1.2.3. Utilisation avec des interactions</h4>
+<div class="sect4">
+<h5 id="_principe_3">Principe</h5>
+<div class="paragraph">
+<p>Lorsque l&#8217;option <strong>*Activer les interactions sur cet équipement</strong> est activée, tout push envoyé vers Jeedom (sous forme de notification basique ou programmée) sera alors injecté (immédiatement si notification basique, ou à l&#8217;horaire prévue si notification programmée) dans le moteur d&#8217;interactions de Jeedom.</p>
+</div>
+<div class="paragraph">
+<p>Le fait d&#8217;injecter le push dans le moteur d&#8217;interaction vient en complément du principe de base du push. Autrement dit en plus du déclenchement de l&#8217;interaction, le device Jeedom sera quand même mis à jour, et s&#8217;il y a lieu déclenchera les scénarios où ce device a été défini comme déclencheur.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_le_message_est_injecté_dans_le_moteur_d_interactions">Le message est injecté dans le moteur d&#8217;interactions</h5>
+<div class="paragraph">
+<p>Dans le moteur d&#8217;interaction, seul le message de la notification est injecté. Le titre n&#8217;est pas utilisé.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_réponse_de_l_interaction">Réponse de l&#8217;interaction</h5>
+<div class="paragraph">
+<p>Si l&#8217;interaction donne lieu à une réponse, celle-ci peut être transmise via une notification vers un des devices Pushbullet. Les devices vers lesquels sont transmises les réponses doivent être sélectionnés dans la page de configuration de l&#8217;équipement Pushbullet (voir Pushbullet : Installation et configuration initiale).</p>
+</div>
+<div class="paragraph">
+<p>Une réponse issue d&#8217;une interaction déclenchée par réception d&#8217;un push sur un équipement Pushbullet donné ne peut être transmise que vers un device de ce même équipement.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_développeurs">1.2.4. Développeurs</h4>
+<div class="sect4">
+<h5 id="_envoi_d_une_notifiation_classique_vers_pushbullet">Envoi d&#8217;une notifiation classique vers Pushbullet</h5>
+<div class="paragraph">
+<p>Pour envoyer une notification avec un texte classique en invoquant une commande Pushbullet, il suffit de passer en paramètre le chemin du fichier, comme décrit dans l&#8217;exemple de code ci-dessous.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$_options['title'] = 'my title';
+$_options['message'] = 'my message';
+$cmd = /* objet commande Pushbullet */;
+$cmd-&gt;execCmd($_options);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Au moins un des deux paramètres 'title' ou 'message' doit être non vide. Il est recommandé de privilégier l&#8217;usage de 'message'.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_envoi_d_un_fichier_local_vers_pushbullet">Envoi d&#8217;un fichier local vers Pushbullet</h5>
+<div class="paragraph">
+<p>Pour envoyer un fichier (qui se trouve localement sur le serveur de Jeedom) en invoquant une commande Pushbullet, il suffit de passer en paramètre le chemin du fichier, comme décrit dans l&#8217;exemple de code ci-dessous.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$filename = '/tmp/myfile.txt';
+$_options['files'] = array($filename);
+$cmd = /* objet commande Pushbullet */;
+$cmd-&gt;execCmd($_options);</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_envoi_d_une_url_vers_pushbullet">Envoi d&#8217;une URL vers Pushbullet</h5>
+<div class="paragraph">
+<p>Pour envoyer une URL pointant sur une image (pas d&#8217;autres format supportés) en invoquant une commande Pushbullet, il suffit de passer en paramètre l&#8217;URL, comme décrit dans l&#8217;exemple de code ci-dessous.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$url = 'https://goo.gl/pBexp5';
+$_options['title'] = $url;
+$cmd = /* objet commande Pushbullet */;
+$cmd-&gt;execCmd($_options);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si l&#8217;URL ne pointe pas vers une image, la notification sera traitée comme une notification classique.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_ordre_de_priorité">Ordre de priorité</h5>
+<div class="paragraph">
+<p>Les 3 types de notifications (classique, fichier, URL) sont exclusifs. L&#8217;ordre de priorité suivant s&#8217;applique:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>fichier</p>
+</li>
+<li>
+<p>URL</p>
+</li>
+<li>
+<p>classique</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_faq">1.3. FAQ</h3>
+<div class="sect3">
+<h4 id="_faq_2">1.3.1. FAQ</h4>
+
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_et_configuration_initiale">2. Installation et configuration initiale</h2>
+<div class="sectionbody">
+<div class="sect3">
+<h4 id="_introduction_et_création_d_un_compte_chez_pushbullet">2.1. Introduction et création d&#8217;un compte chez Pushbullet</h4>
+<div class="paragraph">
+<p>Le plugin pushbullet permet d&#8217;interagir avec le service <a href="http://www.pushbullet.com" class="bare">http://www.pushbullet.com</a>. Avant toute chose, il faut donc commencer par créer un compte gratuitement chez Pushbullet. Dans le plugin pushbullet, un compte pushbullet sera représenté par un équipement. Donc en cas de possession de plusieurs comptes Pushbullet, il sera possible de les associer à autant d&#8217;équipements. Il est aussi possible de créer plusieurs équipements sur le même compte Pushbullet, ça ne pose aucun problème.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Dans la suite des explications, nous ferons comme s&#8217;il n&#8217;y avait qu&#8217;un seul compte (donc un seul équipement). Tout ce qui est indiqué pourra être appliqué à chacun des équipements.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Une application Pushbullet est disponible sur Android et iPhone. Lors de l&#8217;installation de l&#8217;application, le smartphone sur lequel a été installée l&#8217;application apparaîtra dans la liste des devices (sur le compte qui aura été utilisé). Le smartphone devient ainsi capable de recevoir des notification push.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vocabulaire">2.2. Vocabulaire</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">désigne un "device" créer dans le service Pushbullet, vers lequel il est possible d&#8217;envoyer une notification</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device de push</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">device Pushbullet correspondant à Jeedom. Ce device est géré automatiquement par Jeedom, et se nomme "Jeedom_xx" où xx est un nombre (ex: Jeedom_49)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Push vers Jeedom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">consiste à envoyer une notification vers le device de push</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">une clé associée au compte Pushbullet, qu&#8217;il faut récupérer sur le service Pushbullet</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_obtenir_le_token_pushbullet">2.3. Obtenir le token Pushbullet</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Se connecter sur <a href="http://www.pushbullet.com" class="bare">http://www.pushbullet.com</a></p>
+</li>
+<li>
+<p>Cliquer sur l&#8217;icône de compte en haut à droite et cliquer sur "Account Settings"</p>
+</li>
+<li>
+<p>Plugin pushbullet token.png</p>
+</li>
+<li>
+<p>Générer un token si nécessaire</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_installation_du_plugin">2.4. Installation du plugin</h4>
+<div class="paragraph">
+<p>L&#8217;installation du plugin passe par le market, comme tous les plugins. Après installation, aucune configuration n&#8217;est nécessaire au niveau du plugin, tout se passe dans les équipements.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_création_d_un_équipement">3. Création d&#8217;un équipement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aller dans la page du plugin, dans <strong>Plugins &gt; Communication &gt; Pushbullet</strong></p>
+</div>
+<div class="paragraph">
+<p>A l&#8217;ajout, un nom est demandé : mettre le nom souhaité. Après validation, la page des paramètres apparaît :</p>
+</div>
+<div class="paragraph">
+<p><em>Paramètres équipement Pushbullet</em></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token pushbullet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La valeur du token récupéré depuis Pushbullet (dans Account settings)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activer l&#8217;envoi de commandes vers jeedom via cet équipement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cocher cette option pour activer la possibilité d&#8217;envoyer des push vers Jeedom via cet équipement. A l&#8217;activation, un device Jeedom apparaitra dans le compte Pushbullet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activer les interactions sur cet équipement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cocher cette option pour activer le lien avec les interactions Jeedom. Les interactions sont utilisées uniquement pour les push vers Jeedom (il faut donc que l&#8217;option précédente soit activée)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ne pas inclure la commande reçue dans les réponses envoyées après exécution d&#8217;une interaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ce paramètre s&#8217;applique aux réponses émises vers les devices Jeedom sélectionnés (voir plus bas), après traitement d&#8217;une interaction et ce après réception par Jeedom d&#8217;un push. Par défaut, la réponse envoyée informe de la commande initiale (celle initialement reçue sur le push, et qui a servi à déclencher l&#8217;interaction). Par exemple: "commande initiale : quelle est la température du salon?". Cocher cette option permet de retirer cette information de la réponse.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ecouter les push entrant sur jeedom "envoyés à tous" (en plus de ceux explicitement envoyés à Jeedom)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Désactivé par défaut. Certaines applications comme IFTTT ne permettent pas d&#8217;envoyer une notification à un device en particulier, mais seulement à tous. Lorsqu&#8217;activé, ce paramètre permet de prendre en compte ces notifications (en plus de celles envoyées à Jeedom explicitement). Toutefois, les notifications envoyées de Jeedom de cet équipement vers cet équipement seront ignorées (pour éviter les boucles).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timestamp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Une information technique qui indique l&#8217;heure du dernier push analaysé</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernière valeur de push</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indique la dernière valeur reçue sur le device Jeedom (via un push vers Jeedom)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Après enregistrement, la liste des device apparaîtra.</p>
+</div>
+<div class="sect3">
+<h4 id="_paramètres_d_un_device">3.1. Paramètres d&#8217;un device</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un device normal est de type "action". Le device Jeedom est de type "info"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le nom du device tel qu&#8217;il apparaît dans Pushbullet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activer les interactions sur cet équipement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cocher cette option pour activer le lien avec les interactions Jeedom. Les interactions sont utilisées uniquement pour les push vers Jeedom (il faut donc que l&#8217;option précédente soit activée)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ce device recevra les réponses d&#8217;interaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lorsqu&#8217;un push vers Jeedom déclenche une interaction et que celle-ci génère une réponse, elle sera envoyé aux devices où cette option a été activée.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3.dev">
-<title>Description</title>
+<title>husqvarna</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -415,102 +415,352 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_description">1. Description</a></li>
-<li><a href="#_configuration">2. Configuration</a></li>
-<li><a href="#_faq">3. FAQ</a></li>
-<li><a href="#_troubleshoting">4. Troubleshoting</a></li>
-<li><a href="#_changelog">5. Changelog</a></li>
+<li><a href="#_husqvarna">1. husqvarna</a>
+<ul class="sectlevel2">
+<li><a href="#_présentation">1.1. Présentation</a>
+<ul class="sectlevel3">
+<li><a href="#_installation_configuration">1.1.1. Installation/Configuration</a></li>
+<li><a href="#_fonctionnement">1.1.2. Fonctionnement :</a></li>
+<li><a href="#_informations_visibles">1.1.3. Informations visibles :</a></li>
+</ul>
+</li>
+<li><a href="#_configuration">1.2. Configuration</a>
+<ul class="sectlevel3">
+<li><a href="#_configuration_foscam">1.2.1. Configuration Foscam</a></li>
+<li><a href="#_configuration_wanscam">1.2.2. Configuration Wanscam</a></li>
+<li><a href="#_configuration_axis">1.2.3. Configuration Axis</a></li>
+<li><a href="#_configuration_escam_chinoises_sur_soc_hisilicon">1.2.4. Configuration Escam (chinoises sur soc Hisilicon)</a></li>
+<li><a href="#_configuration_dahua">1.2.5. Configuration Dahua</a></li>
+<li><a href="#_configuration_vivotek">1.2.6. Configuration Vivotek</a></li>
+<li><a href="#_configuration_hik">1.2.7. Configuration Hik</a></li>
+<li><a href="#_configuration_autres_modèles">1.2.8. Configuration autres modèles</a></li>
+</ul>
+</li>
+<li><a href="#_configuration_le_debug">1.3. Configuration le debug</a></li>
+<li><a href="#_faq">1.4. FAQ</a></li>
+<li><a href="#_changelog">1.5. Changelog</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_description">1. Description</h2>
+<h2 id="_husqvarna">1. husqvarna</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_présentation">1.1. Présentation</h3>
 <div class="paragraph">
-<p>Ce plugin permet de récupérer le télé-relevé disponible sur les sites Internet de Veolia Eau / Veolia Méditerranée / Tout sur mon eau / Eau en ligne</p>
+<p>Ce plugin permet de creer un serveur ftp qui notifiera jeedom lorsqu&#8217;un fichier est déposé.
+Très utile pour les cameras IP qui peuvent sur détection de mouvement envoyer un fichier par ftp.</p>
 </div>
-<hr>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/husqvarna_screenshot3.jpg" alt="husqvarna screenshot3">
 </div>
 </div>
-<div class="sect1">
-<h2 id="_configuration">2. Configuration</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_installation_configuration">1.1.1. Installation/Configuration</h4>
 <div class="paragraph">
-<p>Vous devez renseigner les identifiants utilisés pour vous connecter votre site
-- Veolia Eau: <a href="https://www.service-client.veoliaeau.fr" class="bare">https://www.service-client.veoliaeau.fr</a>
-- Veolia Méditerranée: <a href="https://www.eau-services.com" class="bare">https://www.eau-services.com</a>
-- Tout sur mon eau / Eau en ligne: <a href="https://www.eau-en-ligne.com" class="bare">https://www.eau-en-ligne.com</a></p>
+<p>Nous allons configurer le plugin. Pour se faire, cliquer sur <strong>Plugin / Gestion des plugins</strong>. Puis trouver <strong>husqvarna</strong>.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/husqvarna_screenshot1.jpg" alt="husqvarna screenshot1">
+</div>
 </div>
 <div class="paragraph">
-<p>Le "Service Télé relevé" doit être activé chez Veolia (Vous pouvez le faire depuis le site Internet dans la rubrique "Vos contrats" si votre compteur d&#8217;eau le permet).</p>
+<p>Il faut définir certains paramètres global au plugin :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Port husqvarna : Port sur lequel le daemon écoutera pour les fichiers.</p>
+</li>
+<li>
+<p>Local IP : Adresse ip d&#8217;écoute du daemon. Il est préférable de laisser 0.0.0.0.</p>
+</li>
+<li>
+<p>IP Autorisées : Liste les IPs autorisées à déposer des fichiers.</p>
+<div class="paragraph">
+<p>Format : liste séparé par virgule sans espace. La liste peut contenir des ips (192.168.1.1), des masques ( (192.168.1.0/32) ou des plages (192.168.1.1-192.168.1.12).</p>
+</div>
+</li>
+<li>
+<p>Chemin des enregistrements : Chemin dans lequel les fichiers seront stockés.</p>
+</li>
+<li>
+<p>Debug daemon : Permet d&#8217;activer le debug du daemon husqvarna.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Votre consommation d&#8217;eau sera récupérée chaque jour.</p>
-</div>
-<hr>
+<p>Et pour finir, cliquer sur Sauvegarder.</p>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_faq">3. FAQ</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_fonctionnement">1.1.2. Fonctionnement :</h4>
+<div class="paragraph">
+<p>Le plugin créera automatiquement les équipements une fois qu&#8217;ils auront envoyé un fichier.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/husqvarna_screenshot6.jpg" alt="husqvarna screenshot6">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_informations_visibles">1.1.3. Informations visibles :</h4>
+<div class="ulist horizontal">
+<ul class="horizontal">
+<li>
+<p><strong>Etat</strong> : état du husqvarna. C&#8217;est une commande de type info binary. Elle est active durant 10 secondes sur reception de fichier.</p>
+</li>
+<li>
+<p><strong>lastfilename</strong> : Nom de la dernière capture reçue.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">1.2. Configuration</h3>
+<div class="paragraph">
+<p>Nous allons maintenant paramétrer l&#8217;équipement. Pour se faire, cliquer sur <strong>Plugins / Sécurité / husqvarna</strong></p>
+</div>
+<div class="paragraph">
+<p>Puis définir les caractèristiques :
+- Objet parent
+- Catégorie (optionnelle)
+- Activer (coché par défaut)
+- Visible (optionel si vous ne désirez pas le rendre visible sur le Dashboard)
+- Nombre max de fichier : Nombre de fichier maximum conservés.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/husqvarna_screenshot2.jpg" alt="husqvarna screenshot2">
+</div>
+</div>
+<div class="paragraph">
+<p>Et pour finir, cliquer sur Sauvegarder</p>
+</div>
+<div class="paragraph">
+<p>Il est possible de rajouter des commandes types pattern pour distinguer les déclanchements en fonction du nom du fichier.
+<a href="http://php.net/manual/fr/function.preg-match.php">Doc php pattern</a></p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/configuration_pattern.jpg" alt="configuration pattern">
+</div>
+</div>
+<div class="paragraph">
+<p>Par exemple, avec ce qui suit, la commande ne se active que si le fichier commence par def.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>/^def/</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_foscam">1.2.1. Configuration Foscam</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_foscam.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_wanscam">1.2.2. Configuration Wanscam</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_wanscam.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_axis">1.2.3. Configuration Axis</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_axis.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_escam_chinoises_sur_soc_hisilicon">1.2.4. Configuration Escam (chinoises sur soc Hisilicon)</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_escam.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_dahua">1.2.5. Configuration Dahua</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_dahua.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_vivotek">1.2.6. Configuration Vivotek</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_vivotek.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_hik">1.2.7. Configuration Hik</h4>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_hik.asciidoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_autres_modèles">1.2.8. Configuration autres modèles</h4>
+<div class="paragraph">
+<p>Il faut mettre l&#8217;adresse IP de votre jeedom comme serveur FTP..</p>
+</div>
+<div class="paragraph">
+<p>Comme port (généralement 21), il faut mettre le port husqvarna qui a été renseigné dans la page de configuration du plugin (8888 par defaut).</p>
+</div>
+<div class="paragraph">
+<p>Il n&#8217;est pas nécessaire de renseigner de compte, de mot de passe, ni de répertoire.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.cameraftp.com/CameraFTP/Support/SupportedCameras.aspx">Documentation générale</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_le_debug">1.3. Configuration le debug</h3>
+<div class="paragraph">
+<p>Unresolved directive in index.asciidoc - include::configuration_debug.asciidoc[]</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_faq">1.4. FAQ</h3>
 <div class="openblock panel">
-<div class="title">Que deviennent mes identifiants saisis ?</div><div class="content">
+<div class="title">J&#8217;essaie de me connecter au daemon et je ne vois rien</div><div class="content">
 <div class="paragraph">
-<p>Ils sont simplement stockés sur votre Jeedom pour pouvoir télécharger le relevé tous les jours.</p>
+<p>Le daemon est n&#8217;autorise pas toutes les commandes FTP. Juste le dépot de fichier pour éviter une faille de sécurité.
+Si vous activez le debug vous devriez avoir le message suivant qui indique que la connexion fonctionne : "[DEBUG] : connect: XXXX".</p>
 </div>
 </div>
 </div>
-<hr>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_troubleshoting">4. Troubleshoting</h2>
-<div class="sectionbody">
-<div class="openblock panel">
-<div class="title">Je ne retrouve pas la consommation d&#8217;hier</div><div class="content">
+<div class="openblock">
+<div class="title">J&#8217;ai des erreurs "unable to solve:"</div><div class="content">
 <div class="paragraph">
-<p>Le fichier fourni par Veolia n&#8217;est pas en temps réel et ne retourne en générale pas les relevé des 3 derniers jours</p>
+<p>Votre configuration DNS ne permet pas à Jeedom de retrouver un nom dns de votre équipement. Ce n&#8217;est pas grave.</p>
 </div>
 </div>
 </div>
-<div class="openblock panel">
-<div class="title">Je viens de créer un objet et le relevé est vide</div><div class="content">
+<div class="openblock">
+<div class="title">Je n&#8217;arrive pas à créer mes équipements</div><div class="content">
 <div class="paragraph">
-<p>Le calcul se fera à l&#8217;heure de relevé définie dans la configuration</p>
+<p>Les équipements sont créés automatique à la reception de la première image.</p>
 </div>
 </div>
 </div>
-<div class="openblock panel">
-<div class="title">Même après plusieurs jours, je n&#8217;ai aucun relevé</div><div class="content">
+<div class="openblock">
+<div class="title">Aucune image n&#8217;est sauvegardée</div><div class="content">
 <div class="paragraph">
-<p>Vérifiez que vos identifiants de connexion sont corrects et que vous avez accès au télé-relevé</p>
+<p>Il faut aller dans la log husqvarna_daemon et regarder si des erreurs sont présentes.
+Si des erreurs sont présente, les remonter au développeur <a href="https://www.jeedom.com/forum/viewtopic.php?f=28&amp;t=24684&amp;start=500">via le Forum sur le lien suivant</a></p>
 </div>
 </div>
 </div>
-<hr>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_changelog">5. Changelog</h2>
-<div class="sectionbody">
-<div class="openblock panel">
-<div class="title">2017-10-25</div><div class="content">
+<div class="openblock">
+<div class="title">Je souhaite mettre 21 pour le port</div><div class="content">
 <div class="paragraph">
-<p>Correction de la date de relevé
-Enregistrement de toutes les dates, même déjà enregistrées (mise à jour des valeurs)
-Correction de la page qui liste les compteur pour griser les compteurs inactifs
-Possibilité de trier les commande par glisser-déposer
-Refactoring et simplification du code</p>
+<p>Le daemon ne peut écouter sur le port standard ftp (21) car il n&#8217;est pas lancé en tant que root.</p>
 </div>
 </div>
 </div>
-<div class="openblock panel">
-<div class="title">2017-10-18</div><div class="content">
 <div class="paragraph">
-<p>Création du changelog
-Mise à jour de la documentation</p>
+<div class="title">J&#8217;ai le message de debug : unable to solve: 192.168.1.26 [Errno 1] Unknown host</div>
+<p>En fait si la camera a un nom DNS, je la nomme avec son nom DNS sinon elle a pour nom  Addr_&lt;IP&gt;. Ce n&#8217;est pas grave, ça veut juste dire que tu n&#8217;as pas configuré de résolution DNS inverse pour l&#8217;IP en question.</p>
 </div>
+<div class="openblock">
+<div class="title">Pourquoi le plugin est gratuit ?</div><div class="content">
+<div class="paragraph">
+<p>Ce plugin est gratuit pour que chacun puisse en profiter simplement. Si vous souhaitez tout de même faire un don au développeur du plugin, merci de me contacter par MP sur le forum.</p>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="title">J&#8217;aimerai remonter des erreurs/modifications directement dans le code ?</div><div class="content">
+<div class="paragraph">
+<p>C&#8217;est tout à fait possible via <a href="https://github.com/guenneguezt/plugin-husqvarna">github</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changelog">1.5. Changelog</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Detail complet des mises à jour sur <a href="https://github.com/guenneguezt/plugin-husqvarna/commits/master">Historique Commit</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Liste des évolutions majeures de la version courante :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Correction pour les patterns</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Anciennes évolutions :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ajout d&#8217;une Clef API specifique au plugin</p>
+</li>
+<li>
+<p>Ajout de log pour les patterns</p>
+</li>
+<li>
+<p>Non prise en compte des images si l&#8217;équipement est désactivé</p>
+</li>
+<li>
+<p>Correction pour fonctionner si IP Autorisées est vide.</p>
+</li>
+<li>
+<p>Correction de la commande ALLO</p>
+</li>
+<li>
+<p>Ajout de message d&#8217;erreur lorsque le daemon n&#8217;arrive pas à communiquer avec Jeedom.</p>
+</li>
+<li>
+<p>Plus de prise en compte de l&#8217;IP configuré dans administration&#8658;réseau.</p>
+</li>
+<li>
+<p>Prise en compte des config en https autosigné.</p>
+</li>
+<li>
+<p>Correction du rafraichissement des images</p>
+</li>
+<li>
+<p>Correction du problème de sauvegarde : Une commande portant ce nom (Etat) existe déjà pour cet équipement</p>
+</li>
+<li>
+<p>Modification pour compatibilité Jeedom V3</p>
+</li>
+<li>
+<p>Plus de suivi de version</p>
+</li>
+<li>
+<p>Ajout de la prise en compte de commande type pattern.</p>
+</li>
+<li>
+<p>Gestion des get en tache de fond du daemon.</p>
+</li>
+<li>
+<p>Correction lorsque les captures sont hors répertoire Jeedom.</p>
+</li>
+<li>
+<p>Première version bêta.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
